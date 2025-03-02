@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://cuyrf6q1kuvcx"]
+
+[ext_resource type="Texture2D" uid="uid://d38nmj2juebau" path="res://Sprites/Player.png" id="1_r0r22"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_tg5qt"]
+[ext_resource type="PackedScene" uid="uid://c7thlqlgj2avo" path="res://Scenes/gun.tscn" id="3_uj42v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6l23d"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1nh7j"]
+radius = 9.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atfli"]
+bg_color = Color(0.237539, 0.237539, 0.237539, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bouia"]
+bg_color = Color(6.97896e-06, 0.877338, 0.0551055, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 0
+script = ExtResource("1_tg5qt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_r0r22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6l23d")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+
+[node name="Gun" parent="." instance=ExtResource("3_uj42v")]
+
+[node name="HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_1nh7j")
+debug_color = Color(0.838122, 0.352982, 0.415073, 0.42)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -13.0
+offset_top = -16.0
+offset_right = 14.0
+offset_bottom = -10.0
+theme_override_styles/background = SubResource("StyleBoxFlat_atfli")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bouia")
+value = 100.0
+show_percentage = false

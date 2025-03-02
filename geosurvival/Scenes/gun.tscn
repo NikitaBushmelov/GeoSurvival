@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7thlqlgj2avo"]
+
+[ext_resource type="Script" path="res://Scripts/gun.gd" id="1_0krq2"]
+[ext_resource type="Texture2D" uid="uid://c7d3qkjt6obru" path="res://Sprites/Gun.png" id="1_cseir"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n3s4e"]
+radius = 169.0
+
+[node name="Gun" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_0krq2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n3s4e")
+
+[node name="WeaponPivot" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponPivot"]
+position = Vector2(15, 0)
+rotation = 1.5708
+texture = ExtResource("1_cseir")
+
+[node name="ShootingPivot" type="Marker2D" parent="WeaponPivot/Sprite2D"]
+unique_name_in_owner = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.6
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
